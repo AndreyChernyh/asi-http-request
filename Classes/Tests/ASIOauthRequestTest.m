@@ -33,7 +33,7 @@ static NSString *serviceAPIRequestDataPList = @"ASIOauthRequestTestParameters.pl
 	[accessTokenSecret release];
 }
 
-- (void)testFetchRequetToken
+- (void)testFetchRequestToken
 {
 	NSString *requestURL = [NSString stringWithFormat: @"%@/oauth/request_token/", [testParameters objectForKey: kServiceURL]];
 	
