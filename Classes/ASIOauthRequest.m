@@ -37,6 +37,14 @@
 	return res;
 }
 
++ (NSString*)decodeURIComponent: (NSString*)component
+{
+	NSString *result = (NSString*)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault,
+																						  (CFStringRef)component,
+																						  CFSTR(""),
+																						  kCFStringEncodingUTF8);
+    return result;
+}
 
 - (NSString*)rawHMAC_SHA1EncodeString: (NSString*)plaintext usingKey: (NSString*)keytext
 {	
@@ -104,13 +112,12 @@
 		if (key_value_parts.count != 2)
 			continue;
 		
-		NSString *key = [key_value_parts objectAtIndex: 0];
-		NSString *value = [key_value_parts objectAtIndex: 1];
+		NSString *key = [ASIOauthRequest decodeURIComponent:[key_value_parts objectAtIndex: 0]];
+		NSString *value = [ASIOauthRequest decodeURIComponent:[key_value_parts objectAtIndex: 1]];
 		
 		[fullParams setObject: value
 					   forKey: key];
 	}
-
 	
 	NSMutableArray *keys = [NSMutableArray arrayWithArray: [fullParams allKeys]];
 	
