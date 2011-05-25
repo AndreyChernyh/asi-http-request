@@ -28,7 +28,8 @@
 	gettimeofday(&tv, NULL);
 	srandom((unsigned int)(tv.tv_usec + (1000000 * tv.tv_sec)));
 	
-	for (int i = 0; i < 10; i++)
+	NSInteger i;
+	for (i = 0; i < 10; i++)
 	{		
 		res = [NSString stringWithFormat: @"%@%02x", res, random() & 0XFF];
 	}
