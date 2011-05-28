@@ -39,8 +39,10 @@
 
 + (NSString*)decodeURIComponent: (NSString*)component
 {
-	NSString *result = (NSString*)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault,
-																						  (CFStringRef)component,
+	
+	NSString *result = [component stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+	result = (NSString*)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault,
+																						  (CFStringRef)result,
 																						  CFSTR(""),
 																						  kCFStringEncodingUTF8);
     return result;
