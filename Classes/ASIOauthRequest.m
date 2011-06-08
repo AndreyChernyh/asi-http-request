@@ -41,11 +41,11 @@
 {
 	
 	NSString *result = [component stringByReplacingOccurrencesOfString:@"+" withString:@" "];
-	result = (NSString*)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault,
+	result = (NSString *)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault,
 																						  (CFStringRef)result,
 																						  CFSTR(""),
 																						  kCFStringEncodingUTF8);
-    return result;
+    return [result autorelease];
 }
 
 - (NSString*)rawHMAC_SHA1EncodeString: (NSString*)plaintext usingKey: (NSString*)keytext
