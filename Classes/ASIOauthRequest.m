@@ -147,7 +147,7 @@
 	
 	NSString *key = [NSString stringWithFormat: @"%@&%@", consumerSecret, tokenSecret != nil ? tokenSecret : @""];
 	
-    NSLog(@"Signature base: %@\r", raw);
+//    NSLog(@"Signature base: %@\r", raw);
     
 	// we now have the raw text, and the key, so do the signing
 	return [self rawHMAC_SHA1EncodeString: raw
