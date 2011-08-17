@@ -98,11 +98,11 @@
 	NSMutableDictionary *fullParams = [NSMutableDictionary dictionaryWithDictionary: headerInfo];
 	
 	// POST params are easy
-//	for (NSDictionary *data in postData)
-//	{
-//		[fullParams setObject: [data objectForKey: @"value"]
-//					   forKey: [data objectForKey: @"key"]];
-//	}
+	for (NSDictionary *data in postData)
+	{
+		[fullParams setObject: [data objectForKey: @"value"]
+					   forKey: [data objectForKey: @"key"]];
+	}
 	
 	// GET params are less so - need to manually pull them out the URL
 	NSString *query = [url query];
