@@ -29,6 +29,8 @@ typedef enum _ASIOAuthSignatureMethod {
 	
 	// signature method used
 	ASIOauthSignatureMethod signatureMethod;
+    
+    BOOL includePostParamsInSignature;
 }
 
 - (id)initWithURL: (NSURL*)desturl forConsumerWithKey: (NSString*)key andSecret: (NSString*)secret;
@@ -47,4 +49,6 @@ typedef enum _ASIOAuthSignatureMethod {
 @property (readonly) NSString *returnedTokenSecret;
 
 @property (assign) ASIOauthSignatureMethod signatureMethod;
+
+@property (assign) BOOL includePostParamsInSignature;
 @end

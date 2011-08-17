@@ -15,6 +15,8 @@
 
 @implementation ASIOauthRequest
 
+@synthesize includePostParamsInSignature;
+
 #pragma mark -
 #pragma mark Internal OAuth utility methods
 
@@ -97,13 +99,15 @@
 	// we need post/get params in here too
 	NSMutableDictionary *fullParams = [NSMutableDictionary dictionaryWithDictionary: headerInfo];
 	
-	// POST params are easy
-	for (NSDictionary *data in postData)
-	{
-		[fullParams setObject: [data objectForKey: @"value"]
-					   forKey: [data objectForKey: @"key"]];
-	}
-	
+    if (includePostParamsInSignature) {
+        // POST params are easy
+        for (NSDictionary *data in postData)
+        {
+            [fullParams setObject: [data objectForKey: @"value"]
+                           forKey: [data objectForKey: @"key"]];
+        }
+    }
+        
 	// GET params are less so - need to manually pull them out the URL
 	NSString *query = [url query];
 	NSArray *pairs = [query componentsSeparatedByString: @"&"];
@@ -143,12 +147,13 @@
 	
 	NSString *key = [NSString stringWithFormat: @"%@&%@", consumerSecret, tokenSecret != nil ? tokenSecret : @""];
 	
+    NSLog(@"Signature base: %@\r", raw);
+    
 	// we now have the raw text, and the key, so do the signing
 	return [self rawHMAC_SHA1EncodeString: raw
 								 usingKey: key];
 	
 }
-
 
 - (void)generateOAuthSignature: (NSMutableDictionary*)headerInfo
 {
@@ -173,7 +178,6 @@
 		}
 	}
 }
-
 
 - (void)buildAuthorizationHeader {
 	
@@ -235,7 +239,8 @@
 	{
 		self.consumerKey = key;
 		self.consumerSecret = secret;
-		self.signatureMethod = ASIHMAC_SHA1OAuthSignatureMethod;		
+		self.signatureMethod = ASIHMAC_SHA1OAuthSignatureMethod;
+        self.includePostParamsInSignature = YES;
 		
 		[self buildAuthorizationHeader];
 	}
